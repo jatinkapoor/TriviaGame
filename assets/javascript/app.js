@@ -38,7 +38,7 @@ $(document).ready(function () {
         $('.timer').text( countDown.time + ' seconds remaining');
       } else {
         if (index < 10) {
-          answerWrong();
+          answerNotFound();
           numWrongAnswers = numWrongAnswers + 1;
         } else {
           reset();
@@ -108,7 +108,22 @@ $(document).ready(function () {
     })
   }
 
-  // correct answer method
+  // no option selected
+  const answerNotFound = function () {
+    $('.timer').css('visibility', 'hidden');
+    $('#questions').text('');
+    $('#options').text('');
+    $('#questions').text('No Option Selected !!');
+    $('#questions').append(`<p>The correct answer is - ${rightAnswer.trim()}</p>`);
+    getGIF("wrong");
+    countDown.stop(); // stopping the countdown
+    countDown.resetClock(); // resetting the countdown
+    index = index + 1;
+    // delay between answer and next question
+    setTimeout(displayQuestion, 6000, index);
+  };
+
+  // incorrect answer method
   const answerWrong = function () {
     $('.timer').css('visibility', 'hidden');
     $('#questions').text('');
