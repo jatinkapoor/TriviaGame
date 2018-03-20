@@ -116,7 +116,7 @@ $(document).ready(function () {
   };
 
   const reset = function () {
-    $('.timer').hide();
+    $('.timer').css('visibility', 'hidden');
     $('#questions').text('');
     $('#options').text('');
     $('#options').append(`<p class="over"> Game Over </p>`) 
@@ -145,11 +145,12 @@ $(document).ready(function () {
   });
 
   $(document).on('click', '.reset', function () {
+    numCorrectAnswers = 0;
+    numWrongAnswers = 0;
     index = 0;
+    rightAnswer = '';
     generateQuestion();
     displayQuestion(index);
   });
-
   generateQuestion();
-
 });
