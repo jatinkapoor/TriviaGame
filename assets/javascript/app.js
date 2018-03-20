@@ -1,27 +1,39 @@
 $(document).ready(function () {
 
+  // tracks all the questions
   let allQuestions = [];
+
+  // tracks number of correct answers
   let numCorrectAnswers = 0;
+
+  // tracks number of incorrect answers
   let numWrongAnswers = 0;
+
+  // index for the questions
   let index = 0;
+
+  // records the right answer
   let rightAnswer = '';
+
+  // countdown object
   let countDown = {
     time: 30,
+    // reset the counter
     resetClock: function () {
       this.time = 30;
       $('.timer').text( countDown.time + ' seconds remaining');
     },
+     // start the counter
     start: function () {
       counter = setInterval(countDown.count, 1000);
     },
+     // stop the counter
     stop: function () {
-      console.log("Stopping");
-      console.log(counter);
       clearInterval(counter);
     },
+    // functionality for the actions that needs to happen when countdown reaches zero
     count: function () {
       countDown.time--;
-      console.log(countDown.time);
       if (countDown.time >= 0) {
         $('.timer').text( countDown.time + ' seconds remaining');
       } else {
@@ -29,26 +41,26 @@ $(document).ready(function () {
           answerWrong();
           numWrongAnswers = numWrongAnswers + 1;
         } else {
-          console.log("Calling reset");
           reset();
         }   
       }
     }
   };
 
-  const generateQuestion = function () {
+  // ajax call go GET trivia questions
+  const initialize = function () {
     $.ajax({
-      url: "https://opentdb.com/api.php?amount=10&type=multiple",
+      url: "https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple",
       method: 'GET'
     }).then(function (response) {
       allQuestions = response.results;
     });
   };
 
+  // Function to display the question on the screen.
   const displayQuestion = function (index) {
-    console.log("In display question");
-    if (index < 10) {
-      
+
+    if (index < 10) {      
       let all_options = [];
       let correct_option = allQuestions[index].correct_answer;
       let incorrect_answers = allQuestions[index].incorrect_answers;
@@ -56,7 +68,7 @@ $(document).ready(function () {
       for (let i = 0; i < incorrect_answers.length; i++) {
         all_options.push(incorrect_answers[i]);
       }
-      all_options.sort();
+      all_options.sort(); // for randomizing the options
       $('#questions').text('');
       $('#options').text('');
       $('#questions').append(`<p>${index + 1}.  ${allQuestions[index].question} </p>`)
@@ -70,24 +82,22 @@ $(document).ready(function () {
       });
       
       $('.timer').css('visibility', 'visible');
-      countDown.start();
+      countDown.start(); //Start the timer when question gets displayed.
 
     } else {
-      console.log("All questions have exhaused");
       reset();
     }
   };
 
-
+  // ajax call to get and display GIFs on the page
   const getGIF = function (word) {
     urlQuery = `https://api.giphy.com/v1/gifs/random?api_key=K49b1wyxkVVa4Gh4Q5uKUOzpWuCQpl3b&tag=${word}&rating=PG-13`
     $.ajax(url = urlQuery, method = 'GET').then(function (response) {
-      console.log("In gif");
-      console.log(response.data);
       $('#options').append(`<img class="gif" src="${response.data.fixed_height_downsampled_url}" alt="">`);
     })
   }
 
+  // correct answer method
   const answerWrong = function () {
     $('.timer').css('visibility', 'hidden');
     $('#questions').text('');
@@ -101,6 +111,7 @@ $(document).ready(function () {
     setTimeout(displayQuestion, 6000, index);
   };
 
+   // correct answer method
   const answerRight = function () {
     $('.timer').css('visibility', 'hidden');
     $('#questions').text('');
@@ -115,6 +126,7 @@ $(document).ready(function () {
     setTimeout(displayQuestion, 6000, index);
   };
 
+  // reset method when all question are exhausted
   const reset = function () {
     $('.timer').css('visibility', 'hidden');
     $('#questions').text('');
@@ -129,11 +141,13 @@ $(document).ready(function () {
     countDown.resetClock();
   };
 
+  // click event listner on start the game button
   $('.startGame').click(function () {
     $('.startGame').remove();
     displayQuestion(index);
   });
 
+  // click event listner on when we choose option
   $(document).on('click', '.choice', function () {
     if ($(this).hasClass("correct")) {
       numCorrectAnswers = numCorrectAnswers + 1;
@@ -144,13 +158,16 @@ $(document).ready(function () {
     }
   });
 
+  // click event listner on game reset
   $(document).on('click', '.reset', function () {
     numCorrectAnswers = 0;
     numWrongAnswers = 0;
     index = 0;
     rightAnswer = '';
-    generateQuestion();
+    initialize(); // makes another ajax call to fresh list of questions
     displayQuestion(index);
   });
-  generateQuestion();
+
+  // This method will be called to make an ajax call and grad list of trivia questions
+  initialize();
 });
