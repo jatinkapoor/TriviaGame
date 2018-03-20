@@ -38,11 +38,9 @@ header {
 
 .score {
   font-family: chalk;
-  color: rgba(197, 28, 16, 0.747);
-  background: transparent;
+  color: rgba(255, 209, 57, 0.747) !important;
   outline: none;
-  border: 5px;
-  font-size: 20px;
+  font-size: 30px !important;
   padding-left: 20%;
 }
 
@@ -65,7 +63,7 @@ header {
   font-family: chalk;
   color: rgba(255, 255, 255, 0.856);
   outline:none;
-  font-size: 20px;
+  font-size: 30px !important;
   padding-left: 20%;
 }
 

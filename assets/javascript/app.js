@@ -9,7 +9,7 @@ $(document).ready(function () {
     time: 30,
     resetClock: function () {
       this.time = 30;
-      $('.timer').html('<h3>' + this.time + ' seconds remaining</h3>');
+      $('.timer').text( countDown.time + ' seconds remaining');
     },
     start: function () {
       counter = setInterval(countDown.count, 1000);
@@ -23,7 +23,7 @@ $(document).ready(function () {
       countDown.time--;
       console.log(countDown.time);
       if (countDown.time >= 0) {
-        $('.timer').html('<h3>' + countDown.time + ' seconds remaining</h3>');
+        $('.timer').text( countDown.time + ' seconds remaining');
       } else {
         if (index < 10) {
           answerWrong();
@@ -69,7 +69,7 @@ $(document).ready(function () {
         }
       });
       
-      $('.timer').show();
+      $('.timer').css('visibility', 'visible');
       countDown.start();
 
     } else {
@@ -89,7 +89,7 @@ $(document).ready(function () {
   }
 
   const answerWrong = function () {
-    $('.timer').hide();
+    $('.timer').css('visibility', 'hidden');
     $('#questions').text('');
     $('#options').text('');
     $('#questions').text('You are Wrong !!'); 
@@ -102,7 +102,7 @@ $(document).ready(function () {
   };
 
   const answerRight = function () {
-    $('.timer').hide();
+    $('.timer').css('visibility', 'hidden');
     $('#questions').text('');
     $('#options').text('');
     $('#questions').text('You are Right !!');
@@ -116,7 +116,7 @@ $(document).ready(function () {
   };
 
   const reset = function () {
-    $('.timer').hide();
+    $('.timer').css('visibility', 'hidden');
     $('#questions').text('');
     $('#options').text('');
     $('#options').append(`<button class="reset" type="button"> Click here to play again.... </button>`)  
