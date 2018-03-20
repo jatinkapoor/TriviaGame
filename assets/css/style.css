@@ -1,0 +1,92 @@
+.container {
+  grid-column-start: 4;
+}
+
+@font-face {
+  font-family: "chalk";
+  src: url("../fonts/Urban.ttf") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "shaded";
+  src: url("../fonts/GrutchShaded.tff") format("truetype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+body {
+  background-image: url("../images/background.jpg");
+  color: rgba(255, 102, 0, 0.856);
+}
+
+header {
+  font-family: chalk;
+  font-size: 150px;
+}
+
+.startGame {
+  font-family: chalk;
+  color: rgba(255, 153, 0, 0.747);
+  background: transparent;
+  outline:none;
+  border: 5px;
+  font-size: 50px;
+  padding-left: 20%;
+}
+
+.score {
+  font-family: chalk;
+  color: rgba(197, 28, 16, 0.747);
+  background: transparent;
+  outline: none;
+  border: 5px;
+  font-size: 20px;
+  padding-left: 20%;
+}
+
+.questions {
+  font-family: chalk;
+  color: rgba(255, 255, 255, 0.856);
+  outline:none;
+  font-size: 30px;
+}
+
+.choice {
+  font-family: chalk;
+  color: rgba(255, 255, 255, 0.856);
+  outline:none;
+  font-size: 20px;
+}
+
+.timer {
+  padding-top: 5%;
+  font-family: chalk;
+  color: rgba(255, 255, 255, 0.856);
+  outline:none;
+  font-size: 20px;
+  padding-left: 20%;
+}
+
+.gif {
+  padding-left: 20%;
+}
+
+.reset {
+  font-family: chalk;
+  color: rgba(255, 153, 0, 0.747);
+  background: transparent;
+  outline:none;
+  border: 5px;
+  font-size: 50px;
+  padding-left: 10%;
+}
+
+button:hover {
+  color: rgb(239, 255, 13);
+}
+
+ button:focus {
+   outline: 0 !important;
+ }
