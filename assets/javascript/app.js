@@ -116,14 +116,15 @@ $(document).ready(function () {
   };
 
   const reset = function () {
-    $('.timer').css('visibility', 'hidden');
+    $('.timer').hide();
     $('#questions').text('');
     $('#options').text('');
-    $('#options').append(`<button class="reset" type="button"> Click here to play again.... </button>`)  
-    $('#options').append(`<p class="score"> Your Score.... </p>`) 
+    $('#options').append(`<p class="over"> Game Over </p>`) 
+    $('#options').append(`<p class="score"> Your Score </p>`) 
     $('#options').append(`<p class="score"> Total Questions : ${allQuestions.length} </p>`)  
     $('#options').append(`<p class="score"> No. of Right Answers : ${numCorrectAnswers} </p>`)  
     $('#options').append(`<p class="score"> No. of Wrong Answers : ${numWrongAnswers} </p>`)  
+    $('#options').append(`<button class="reset" type="button"> Click here to play again.... </button>`)  
     countDown.stop();
     countDown.resetClock();
   };
