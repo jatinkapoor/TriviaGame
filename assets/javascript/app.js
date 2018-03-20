@@ -49,8 +49,14 @@ $(document).ready(function () {
 
   // ajax call go GET trivia questions
   const initialize = function () {
+    let urlString;
+    let address = "https://opentdb.com/api.php?";
+    let queryParams = "amount=10&category=18&difficulty=easy&type=multiple";
+    // GET Request URL for trivia questions
+    urlString = address + queryParams;
+    // ajax call
     $.ajax({
-      url: "https://opentdb.com/api.php?amount=10&category=18&difficulty=easy&type=multiple",
+      url: urlString,
       method: 'GET'
     }).then(function (response) {
       allQuestions = response.results;
@@ -82,8 +88,7 @@ $(document).ready(function () {
       });
       
       $('.timer').css('visibility', 'visible');
-      countDown.start(); //Start the timer when question gets displayed.
-
+      countDown.start(); // Start the timer when question gets displayed.
     } else {
       reset();
     }
@@ -91,8 +96,14 @@ $(document).ready(function () {
 
   // ajax call to get and display GIFs on the page
   const getGIF = function (word) {
-    urlQuery = `https://api.giphy.com/v1/gifs/random?api_key=K49b1wyxkVVa4Gh4Q5uKUOzpWuCQpl3b&tag=${word}&rating=PG-13`
-    $.ajax(url = urlQuery, method = 'GET').then(function (response) {
+    let urlString;
+    let address = "https://api.giphy.com/v1/gifs/random?";
+    let api_key = "api_key=K49b1wyxkVVa4Gh4Q5uKUOzpWuCQpl3b&tag=";
+    let queryParams = "&rating=PG-13";
+    // GET Request URL for GIFS
+    urlString = address + api_key + word + queryParams;
+    // ajax call 
+    $.ajax(url = urlString, method = 'GET').then(function (response) {
       $('#options').append(`<img class="gif" src="${response.data.fixed_height_downsampled_url}" alt="">`);
     })
   }
@@ -105,9 +116,10 @@ $(document).ready(function () {
     $('#questions').text('You are Wrong !!'); 
     $('#questions').append(`<p>The correct answer is - ${rightAnswer.trim()}</p>`); 
     getGIF("wrong");
-    countDown.stop();
-    countDown.resetClock();
+    countDown.stop(); // stopping the countdown
+    countDown.resetClock(); // resetting the countdown
     index = index + 1;
+    // delay between answer and next question
     setTimeout(displayQuestion, 6000, index);
   };
 
@@ -119,10 +131,10 @@ $(document).ready(function () {
     $('#questions').text('You are Right !!');
     $('#questions').append(`<p>The correct answer is - ${rightAnswer.trim()}</p>`); 
     getGIF("right");
-    countDown.stop();
-    countDown.resetClock();
-
+    countDown.stop(); // stoping the countdown
+    countDown.resetClock(); // resetting the countdown
     index = index + 1;
+     // delay between answer and next question
     setTimeout(displayQuestion, 6000, index);
   };
 
@@ -137,8 +149,8 @@ $(document).ready(function () {
     $('#options').append(`<p class="score"> No. of Right Answers : ${numCorrectAnswers} </p>`)  
     $('#options').append(`<p class="score"> No. of Wrong Answers : ${numWrongAnswers} </p>`)  
     $('#options').append(`<button class="reset" type="button"> Click here to play again.... </button>`)  
-    countDown.stop();
-    countDown.resetClock();
+    countDown.stop(); // stoping the countdown
+    countDown.resetClock(); // resetting the countdown
   };
 
   // click event listner on start the game button
